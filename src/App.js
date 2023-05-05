@@ -12,26 +12,7 @@ useRoutes
 import ParentNav from './navbar'
 import Product from './product';
 import Footer from './footer';
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
+
 
  function App() {
   return (
@@ -40,9 +21,9 @@ import Footer from './footer';
     <div>
       
       <ParentNav />
+    
      
-      <h1 className='text-center'>Sản phẩm</h1>
-      <Product />
+      {/* <Product /> */}
      
       <Footer />
     </div>
@@ -131,7 +112,8 @@ function Box() {
 const AAA =  function BBBB ()  {
   let routes = useRoutes([
     { path: "/", element: <Home /> },
-    { path: "/component2", element: <About /> },
+    { path: "/blog", element: <About /> },
+    { path: "/contact", element: <About /> },
     // ...
   ]);
   return routes;
@@ -141,20 +123,8 @@ const AAA =  function BBBB ()  {
     <div>
     <Router>
     
-        {/* <OldSchoolMenuLink
-          activeOnlyWhenExact={true}
-          to="/"
-          label="Home"
-        />
-        <OldSchoolMenuLink to="/about" label="About" />
-
-        <hr /> */}
-
           <AAA /> 
-         
-      
-        
-     
+   
     </Router>
     </div>
   );

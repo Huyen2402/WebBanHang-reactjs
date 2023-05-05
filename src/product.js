@@ -1,4 +1,4 @@
-import React from "react";
+import {React, useState,useEffect} from "react";
 import {
   MDBContainer,
   MDBRow,
@@ -7,156 +7,127 @@ import {
   MDBCardBody,
   MDBCardImage,
   MDBIcon,
+  MDBBtn
 } from "mdb-react-ui-kit";
 
+import config from '../src/config';
+import useData from '../src/getData';
+import _ from 'lodash';
+import { code } from "fontawesome";
+function SessionCart(name, price, img, codeid) {
+   let cart = {
+    name : name,
+  price: price,
+  img : img,
+  codeid :codeid,
+  quantity :1,
+  }
+  return cart;
+}
+function AddCart(item) {
+  let name = item.Name;
+  
+  let price = item.Price;
+  let img = item.Img;
+  let codeid = item.CodeID;
+  let listCart = [];
+  if(_.isNil(localStorage.getItem('Cart'))){
+    const cart =  SessionCart(name,price,img,codeid);
+    listCart.push(cart);
+    localStorage.setItem('Cart', JSON.stringify(cart) );
+    
+   
+   
+  }else{
+    listCart = localStorage.getItem('Cart');
+    if(localStorage.getItem('Cart') && _.isNil(item.ID)){
+    const cart =  SessionCart(name,price,img,codeid);
+    listCart.push(cart);
+      localStorage.setItem('Cart', JSON.stringify(listCart) );
+    }
+    else{
+      const up = localStorage.getItem('Cart');
+      
+    }
+  }
+  
+}
+
 function Product() {
+  const Value = useData(config.urlGetProduct);
+
+  const [products, setProducts] = useState([])
+  console.log(JSON.stringify(localStorage.getItem('Cart')));
+
+
+
+  useEffect ( () => {
+    if(Value[0]?.data){
+      setProducts(Value[0]?.data)
+    }
+  },[Value])
+  console.log(products)
+  
+
+
+  
   return (
+    
     <MDBContainer container className="my-5">
+       <h1 className='text-center'>Sản phẩm</h1>
       <MDBRow>
-        <MDBCol md="12" lg="4" className="mb-4 mb-lg-0">
-          <MDBCard>
-            <div className="d-flex justify-content-between p-3">
-              <p className="lead mb-0">Today's Combo Offer</p>
-              <div
-                className="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
-                style={{ width: "35px", height: "35px" }}
-              >
-                <p className="text-white mb-0 small">x4</p>
-              </div>
-            </div>
-            <MDBCardImage
-              src="https://product.hstatic.net/1000362438/product/m2_115ed4f14ce3411388cca27bdb602759_master.jpg"
-              position="top"
-              alt="Laptop"
-            />
-            <MDBCardBody>
-              <div className="d-flex justify-content-between">
-                <p className="small">
-                  <a href="#!" className="text-muted">
-                    Laptops
-                  </a>
-                </p>
-                <p className="small text-danger">
-                  <s>$1099</s>
-                </p>
-              </div>
-
-              <div className="d-flex justify-content-between mb-3">
-                <h5 className="mb-0">HP Notebook</h5>
-                <h5 className="text-dark mb-0">$999</h5>
-              </div>
-
-              <div class="d-flex justify-content-between mb-2">
-                <p class="text-muted mb-0">
-                  Available: <span class="fw-bold">6</span>
-                </p>
-                <div class="ms-auto text-warning">
-                  <MDBIcon fas icon="star" />
-                  <MDBIcon fas icon="star" />
-                  <MDBIcon fas icon="star" />
-                  <MDBIcon fas icon="star" />
-                  <MDBIcon fas icon="star" />
+      
+        {
+          products?.length && products.map((item, i) => 
+            (
+            <MDBCol md="12" lg="4" className="mb-4 mb-lg-0" key={item.id} >
+              <MDBCard>
+                <div className="d-flex justify-content-between p-3">
+                  <p className="lead mb-0">{item.Name}</p>
+                  
                 </div>
-              </div>
-            </MDBCardBody>
-          </MDBCard>
-        </MDBCol>
-        <MDBCol md="12" lg="4" className="mb-4 mb-lg-0">
-          <MDBCard>
-            <div className="d-flex justify-content-between p-3">
-              <p className="lead mb-0">Today's Combo Offer</p>
-              <div
-                className="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
-                style={{ width: "35px", height: "35px" }}
-              >
-                <p className="text-white mb-0 small">x2</p>
-              </div>
-            </div>
-            <MDBCardImage
-              src="https://product.hstatic.net/1000362438/product/m2_115ed4f14ce3411388cca27bdb602759_master.jpg"
-              position="top"
-              alt="Laptop"
-            />
-            <MDBCardBody>
-              <div className="d-flex justify-content-between">
-                <p className="small">
-                  <a href="#!" className="text-muted">
-                    Laptops
-                  </a>
-                </p>
-                <p className="small text-danger">
-                  <s>$1199</s>
-                </p>
-              </div>
-
-              <div className="d-flex justify-content-between mb-3">
-                <h5 className="mb-0">HP Envy</h5>
-                <h5 className="text-dark mb-0">$1099</h5>
-              </div>
-
-              <div class="d-flex justify-content-between mb-2">
-                <p class="text-muted mb-0">
-                  Available: <span class="fw-bold">7</span>
-                </p>
-                <div class="ms-auto text-warning">
-                  <MDBIcon fas icon="star" />
-                  <MDBIcon fas icon="star" />
-                  <MDBIcon fas icon="star" />
-                  <MDBIcon fas icon="star" />
-                  <MDBIcon far icon="star" />
-                </div>
-              </div>
-            </MDBCardBody>
-          </MDBCard>
-        </MDBCol>
-        <MDBCol md="12" lg="4" className="mb-4 mb-lg-0">
-          <MDBCard>
-            <div className="d-flex justify-content-between p-3">
-              <p className="lead mb-0">Today's Combo Offer</p>
-              <div
-                className="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
-                style={{ width: "35px", height: "35px" }}
-              >
-                <p className="text-white mb-0 small">x3</p>
-              </div>
-            </div>
-            <MDBCardImage
-              src="https://product.hstatic.net/1000362438/product/m2_115ed4f14ce3411388cca27bdb602759_master.jpg"
-              position="top"
-              alt="Gaming Laptop"
-            />
-            <MDBCardBody>
-              <div className="d-flex justify-content-between">
-                <p className="small">
-                  <a href="#!" className="text-muted">
-                    Laptops
-                  </a>
-                </p>
-                <p className="small text-danger">
-                  <s>$1399</s>
-                </p>
-              </div>
-
-              <div className="d-flex justify-content-between mb-3">
-                <h5 className="mb-0">Toshiba B77</h5>
-                <h5 className="text-dark mb-0">$1299</h5>
-              </div>
-
-              <div class="d-flex justify-content-between mb-2">
-                <p class="text-muted mb-0">
-                  Available: <span class="fw-bold">5</span>
-                </p>
-                <div class="ms-auto text-warning">
-                  <MDBIcon fas icon="star" />
-                  <MDBIcon fas icon="star" />
-                  <MDBIcon fas icon="star" />
-                  <MDBIcon fas icon="star" />
-                  <MDBIcon fas icon="star-half-alt" />
-                </div>
-              </div>
-            </MDBCardBody>
-          </MDBCard>
-        </MDBCol>
+                <MDBCardImage
+                  src={item.Img}
+                  position="top"
+                  alt="Laptop"
+                />
+                <MDBCardBody>
+                  <div className="d-flex justify-content-between">
+                    <p className="small">
+                      <a href="#!" className="text-muted">
+                      {/* {{i}} */}
+                      </a>
+                    </p>
+                    <p className="small text-danger">
+                      <s>${item.Price}</s>
+                    </p>
+                  </div>
+    
+                  <div className="d-flex justify-content-between mb-3">
+                  <MDBBtn onClick={AddCart(item)} className='mx-2' color='dark'>
+        Mua hàng
+      </MDBBtn>
+                    <h5 className="text-dark mb-0">{item.Price}</h5>
+                  </div>
+    
+                  <div class="d-flex justify-content-between mb-2">
+                    <p class="text-muted mb-0">
+                      Available: <span class="fw-bold">{item.TotalProduct}</span>
+                    </p>
+                    <div class="ms-auto text-warning">
+                      <MDBIcon fas icon="star" />
+                      <MDBIcon fas icon="star" />
+                      <MDBIcon fas icon="star" />
+                      <MDBIcon fas icon="star" />
+                      <MDBIcon fas icon="star" />
+                    </div>
+                  </div>
+                </MDBCardBody>
+              </MDBCard>
+            </MDBCol>)
+          )
+        } 
+        
       </MDBRow>
     </MDBContainer>
   );

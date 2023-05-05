@@ -1,4 +1,5 @@
 import React from 'react';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
   MDBFooter,
   MDBContainer,
@@ -11,15 +12,19 @@ import {
 
 export default function Footer() {
   return (
-    <MDBFooter className='text-center' color='white' bgColor='dark'>
+    
+    <MDBFooter className='text-center'  color='white' bgColor='dark'>
       <MDBContainer className='p-4'>
         <section className='mb-4'>
-          <MDBBtn outline color="light" floating className='m-1' href='#!' role='button'>
-            <MDBIcon  fab icon='facebook-f' />
+       
+          <MDBBtn outline color="light" floating className='m-1' href='#!'  role='button'>
+            <MDBIcon fab icon="facebook" />
+            <MDBIcon fab icon='camera-retro' />
           </MDBBtn>
 
           <MDBBtn outline color="light" floating className='m-1' href='#!' role='button'>
             <MDBIcon fab icon='twitter' />
+            <MDBIcon icon='camera-retro' />
           </MDBBtn>
 
           <MDBBtn outline color="light" floating className='m-1' href='#!' role='button'>

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useState,useEffect } from 'react';
 import {
@@ -11,74 +12,28 @@ Switch,
 
 NavLink
 } from "react-router-dom";
-
-// const AAA =  function BBBB ()  {
-//   let routes = useRoutes([
-//     { path: "/", element: <Home /> },
-//     { path: "/component2", element: <About /> },
-//     // ...
-//   ]);
-//   return routes;
-// };
-//  const Navbar = function CustomLinkExample() {
-//   return (
-//     <div>
-//     <Router>
-    
-//         {/* <OldSchoolMenuLink
-//           activeOnlyWhenExact={true}
-//           to="/"
-//           label="Home"
-//         />
-//         <OldSchoolMenuLink to="/about" label="About" />
-
-//         <hr /> */}
-
-//           <AAA /> 
-         
-      
-        
-     
-//     </Router>
-//     </div>
-//   );
-// }
-
-// function OldSchoolMenuLink({ label, to, activeOnlyWhenExact }) {
-//   let match = useMatch({
-//     path: to,
-//     exact: activeOnlyWhenExact
-//   });
-
-//   return (
-//     <div className={match ? "active" : ""}>
-//       {match && "> "}
-//       <Link to={to}>{label}</Link>
-//     </div>
-//   );
-// }
-
-// function Home() {
-//   return (
-//     <div>
-//       <h2>Home</h2>
-//       <Link to="/component2">Home</Link>
-//     </div>
-//   );
-// }
-
-// function About() {
-//   return (
-//     <div>
-//       <h2>About</h2>
-//     </div>
-//   );
-// }
-// export default Navbar;
-
-
+import _ from 'lodash';
+import {
+  MDBFooter,
+  MDBContainer,
+  MDBIcon,
+  MDBInput,
+  MDBCol,
+  MDBRow,
+  MDBBtn,
+  MDBDropdown,
+  MDBDropdownMenu,
+  MDBDropdownToggle,
+  MDBDropdownItem,
+} from 'mdb-react-ui-kit';
+import DropDown from './dropdown';
+import Product from './product';
+import Login from './login';
+import Cart from './cart';
+import {Logout} from '../src/useDetectOutsideClick'
 //Pages
 const Home = () => {
+  console.log("hey");
   return (
     <div>
       <h1>Home</h1>
@@ -107,6 +62,18 @@ const Contact = () => {
     </div>
   );
 };
+const DropDownNav = ()=>{
+  return (
+    <MDBDropdown>
+      <MDBDropdownToggle>Danh Mục</MDBDropdownToggle>
+      <MDBDropdownMenu>
+        <MDBDropdownItem >Action</MDBDropdownItem>
+        <MDBDropdownItem >Another action</MDBDropdownItem>
+        <MDBDropdownItem >Something else here</MDBDropdownItem>
+      </MDBDropdownMenu>
+    </MDBDropdown>
+  );
+}
 
 
 
@@ -142,6 +109,8 @@ function NavBar() {
   }, []);
   console.log(offset);
   const col = offset > 0 ? change  :  colorButton;
+  const local = _.isNil(localStorage.getItem('Login'));
+  
   const nav = {
    
        backgroundColor: col,
@@ -157,6 +126,7 @@ function NavBar() {
   }
 
   return (
+   
     <div style={{opacity:'0.8'}}>
     <div style={myStyle} >
       
@@ -166,7 +136,7 @@ function NavBar() {
         <div className="nav-container">
           <NavLink exact to="/" className="nav-logo">
             Oriana
-            <i className="fa fa-code"></i>
+           
           </NavLink>
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
@@ -177,40 +147,43 @@ function NavBar() {
                 className="nav-links"
                 onClick={click ? handleClick : null}
               >
-                Home
+                Trang Chủ
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink
+            <DropDown />
+              {/* <NavLink
                 exact
                 to="/about"
                 activeClassName="active"
                 className="nav-links"
                 onClick={click ? handleClick : null}
               >
-                About
-              </NavLink>
+                
+                
+              </NavLink> */}
             </li>
             <li className="nav-item">
               <NavLink
                 exact
-                to="/blog"
+                to={!local? Logout : "/dang-nhap"}
                 activeClassName="active"
                 className="nav-links"
-                onClick={click ? handleClick : null}
+                onClick={!local ? Logout : ""}
               >
-                Blog
+                
+                {!local ? "Đăng Xuất" : "Đăng nhập"}
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink
                 exact
-                to="/contact"
+                to="/gio-hang"
                 activeClassName="active"
                 className="nav-links"
                onClick={click ? handleClick : null}
               >
-                Contact Us
+               <MDBIcon fas icon="shopping-cart" /> Giỏ hàng
               </NavLink>
             </li>
           </ul>
@@ -296,7 +269,7 @@ function ABC() {
             <li className="nav-item">
               <NavLink
                 exact
-                to="/blog"
+                to="/dang-nhap"
                 activeClassName="active"
                 className="nav-links"
                 onClick={click ? handleClick : null}
@@ -307,7 +280,7 @@ function ABC() {
             <li className="nav-item">
               <NavLink
                 exact
-                to="/contact"
+                to="/gio-hang"
                 activeClassName="active"
                 className="nav-links"
                onClick={click ? handleClick : null}
@@ -327,6 +300,15 @@ function ABC() {
   
  
 }
+const AAA =  function BBBB ()  {
+  let routes = useRoutes([
+    { path: "/", element: <Product /> },
+    { path: "/dang-nhap", element: <Login /> },
+    { path: "/gio-hang", element: <Cart /> },
+    // ...
+  ]);
+  return routes;
+};
 function ParentNav() {
   
   return (
@@ -335,14 +317,21 @@ function ParentNav() {
        <Router>
         <NavBar />
 
-        <div className="pages">
-          <Routes>
-            <Route exact path="/" component={Home} />
-            <Route path="/about" component={About} />
-            <Route path="/blog" component={Blog} />
+        <div className="">
+       
+<AAA />
+          {/* <Routes>
+          
+            <Route exact path="/" element={Home} />
+            <Route path="/about" element={About} />
+            <Route path="/blog" element={Blog} />
             <Route path="/contact" component={Contact} />
-          </Routes>
+          </Routes> */}
         </div>
+       
+   
+
+
       </Router>
     </>
   );

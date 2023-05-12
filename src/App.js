@@ -12,6 +12,7 @@ useRoutes
 import ParentNav from './navbar'
 import Product from './product';
 import Footer from './footer';
+import Category from './Category';
 
 
  function App() {
@@ -114,6 +115,7 @@ const AAA =  function BBBB ()  {
     { path: "/", element: <Home /> },
     { path: "/blog", element: <About /> },
     { path: "/contact", element: <About /> },
+    { path: "/danh-muc", element: <Category /> },
     // ...
   ]);
   return routes;

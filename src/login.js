@@ -44,17 +44,7 @@ function Login() {
       Password: password
     };
     console.log(body);
-    
-//     const Value = login(config.urlLogin,body);
-// console.log(Value);
-//   const [user, setUser] = useState([])
-//   useEffect ( () => {
-//     if(Value[0]?.data){
-//       setUser(Value[0]?.data)
-//     }
-//   },[Value])
-//   console.log(user)
-  
+
     axios.post(config.urlLogin, {
       body
     }).then(result => {
@@ -64,7 +54,7 @@ function Login() {
             setLoggedIn(true);
             console.log(result.data);
             
-            localStorage.setItem('Login', 'abc');
+            localStorage.setItem('Login', JSON.stringify(result.data));
             console.log(localStorage.getItem('Login'));
             window.location.href = "http://localhost:3000/";
 
@@ -127,8 +117,8 @@ function Login() {
             <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
             <a href="!#">Forgot password?</a>
           </div>
-
-          <MDBBtn onClick={PostLogin} className="mb-4 w-100">Sign in</MDBBtn>
+          <button onClick={PostLogin} className='class="ripple ripple-surface btn btn-primary mb-4 w-100"'>Đăng Nhập</button>
+         
           <p className="text-center">Not a member? <a href="#!">Register</a></p>
 
         </MDBTabsPane>

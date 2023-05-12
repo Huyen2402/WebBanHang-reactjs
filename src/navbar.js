@@ -30,6 +30,7 @@ import DropDown from './dropdown';
 import Product from './product';
 import Login from './login';
 import Cart from './cart';
+import Category from './Category';
 import {Logout} from '../src/useDetectOutsideClick'
 //Pages
 const Home = () => {
@@ -151,17 +152,9 @@ function NavBar() {
               </NavLink>
             </li>
             <li className="nav-item">
+              
             <DropDown />
-              {/* <NavLink
-                exact
-                to="/about"
-                activeClassName="active"
-                className="nav-links"
-                onClick={click ? handleClick : null}
-              >
-                
-                
-              </NavLink> */}
+              
             </li>
             <li className="nav-item">
               <NavLink
@@ -198,113 +191,14 @@ function NavBar() {
   
  
 }
-function ABC() {
-  const [click, setClick] = React.useState(false);
 
-  const handleClick = () => setClick(!click);
-  const Close = () => setClick(false);
-  let style = { backgroundColor: 'black' };
-  const [offset, setOffset] = useState(0);
-  const colorButton = 'red';
-  const change = 'green';
-  const [count, setCount] = useState(colorButton);
-  const myStyle={
-    backgroundImage: 
-"url('https://theme.hstatic.net/1000362438/1000729754/14/ms_banner_img2.jpg?v=414')",
-    height:'100vh',
-    marginTop:'-70px',
-    fontSize:'50px',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    
-};
-  useEffect(() => {
-    const onScroll = () => setOffset(window.pageYOffset);
-    window.removeEventListener('scroll', onScroll);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    style.backgroundColor = 'green';
-    
-    
-  }, []);
-  console.log(offset);
-  const col = offset > 0 ? style : '';
-  
-
-  return (
-    <div style={{opacity:'0.9'}}>
-    <div style={myStyle} onScroll={{}}>
-      
-     <div className={click ? "main-container " : ""}  onClick={()=>Close()} />
-     
-      <nav style={{backgroundColor:col}} className="navbar" onClick={e => e.stopPropagation()}>
-        <div className="nav-container">
-          <NavLink exact to="/" className="nav-logo">
-            Oriana
-            <i className="fa fa-code"></i>
-          </NavLink>
-          <ul className={click ? "nav-menu active" : "nav-menu"}>
-            <li className="nav-item">
-              <NavLink
-                exact
-                to="/"
-                activeClassName="active"
-                className="nav-links"
-                onClick={click ? handleClick : null}
-              >
-                Home
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                exact
-                to="/about"
-                activeClassName="active"
-                className="nav-links"
-                onClick={click ? handleClick : null}
-              >
-                About
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                exact
-                to="/dang-nhap"
-                activeClassName="active"
-                className="nav-links"
-                onClick={click ? handleClick : null}
-              >
-                Blog
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                exact
-                to="/gio-hang"
-                activeClassName="active"
-                className="nav-links"
-               onClick={click ? handleClick : null}
-              >
-                Contact Us
-              </NavLink>
-            </li>
-          </ul>
-          <div className="nav-icon" onClick={handleClick}>
-            <i className={click ? "fa fa-times" : "fa fa-bars"}></i>
-          </div>
-        </div>
-      </nav>
-    </ div>
-    </div>
-  );
-  
- 
-}
 const AAA =  function BBBB ()  {
   let routes = useRoutes([
     { path: "/", element: <Product /> },
     { path: "/dang-nhap", element: <Login /> },
     { path: "/gio-hang", element: <Cart /> },
+    { path: "/danh-muc", element: <Category /> },
+    
     // ...
   ]);
   return routes;
@@ -319,14 +213,8 @@ function ParentNav() {
 
         <div className="">
        
-<AAA />
-          {/* <Routes>
-          
-            <Route exact path="/" element={Home} />
-            <Route path="/about" element={About} />
-            <Route path="/blog" element={Blog} />
-            <Route path="/contact" component={Contact} />
-          </Routes> */}
+        <AAA />
+
         </div>
        
    

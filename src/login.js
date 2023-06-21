@@ -13,6 +13,7 @@ import {
   MDBCheckbox
 }
 from 'mdb-react-ui-kit';
+import Swal from 'sweetalert2';
 import config from '../src/config';
 import _ from 'lodash';
 function Local() {
@@ -26,6 +27,8 @@ function Local() {
 function Login() {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [FirstName, setFirstName] = useState('');
+  const [LastName, setLastName] = useState('');
   const [justifyActive, setJustifyActive] = useState('tab1');
   const [isLoggedIn, setLoggedIn] = useState(false)
   
@@ -41,31 +44,72 @@ function Login() {
   function PostLogin() {
     const body = {
       Email: userName,
-      Password: password
+      Password: password,
     };
     console.log(body);
 
-    axios.post(config.urlLogin, {
-      body
-    }).then(result => {
-      console.log('result',result);
+    axios
+      .post(config.urlLogin, {
+        body,
+      })
+      .then((result) => {
+        console.log("result", result);
         if (result.status === 200) {
-          
-            setLoggedIn(true);
-            console.log(result.data);
-            
-            localStorage.setItem('Login', JSON.stringify(result.data));
-            console.log(localStorage.getItem('Login'));
-            window.location.href = "http://localhost:3000/";
+          setLoggedIn(true);
+          console.log(result.data);
 
+          localStorage.setItem("Login", JSON.stringify(result.data));
+          console.log(localStorage.getItem("Login"));
+          window.location.href = "http://localhost:3000/";
         } else {
-            setIsError(true);
+          setIsError(true);
         }
-    }).catch(e => {
+      })
+      .catch((e) => {
         setIsError(true);
         console.log(e);
-    });
-}
+      });
+  }
+  function AddNewUser() {
+    const body = {
+      FirstName: FirstName,
+      LastName: LastName,
+      Email: userName,
+      Password: password 
+    };
+    console.log('body add user ', body);
+    axios
+      .post(config.urlAddUser, {
+        body,
+      })
+      .then((result) => {
+        console.log("result add new user", result);
+        if (result.status === 200) {
+          console.log(result.data);
+          Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'success',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "http://localhost:3000/";
+            }
+          })
+         
+        } else {
+          setIsError(true);
+        }
+      })
+      .catch((e) => {
+        setIsError(true);
+        console.log(e);
+      });
+    
+  }
   return (
     <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
 
@@ -148,17 +192,17 @@ function Login() {
 
             <p className="text-center mt-3">or:</p>
           </div>
+          <MDBInput onChange={event => setFirstName(event.target.value)} wrapperClass='mb-4' label='FirstName' id='FirstName' type='text'/>
+          <MDBInput onChange={event => setLastName(event.target.value)} wrapperClass='mb-4' label='LastName' id='LastName' type='text'/>
 
-          <MDBInput wrapperClass='mb-4' label='Name' id='form1' type='text'/>
-          <MDBInput wrapperClass='mb-4' label='Username' id='form1' type='text'/>
-          <MDBInput wrapperClass='mb-4' label='Email' id='form1' type='email'/>
-          <MDBInput wrapperClass='mb-4' label='Password' id='form1' type='password'/>
+          <MDBInput onChange={event => setUsername(event.target.value)} wrapperClass='mb-4' label='Email' id='Email' type='email'/>
+          <MDBInput onChange={event => setPassword(event.target.value)} wrapperClass='mb-4' label='Password' id='Password' type='password'/>
 
           <div className='d-flex justify-content-center mb-4'>
             <MDBCheckbox name='flexCheck' id='flexCheckDefault' label='I have read and agree to the terms' />
           </div>
-
-          <MDBBtn className="mb-4 w-100">Sign up</MDBBtn>
+          <button onClick={AddNewUser} className='class="ripple ripple-surface btn btn-primary mb-4 w-100"'>Đăng ký</button>
+        
 
         </MDBTabsPane>
 

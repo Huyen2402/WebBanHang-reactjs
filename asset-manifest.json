@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/WebBanHang-reactjs/static/css/main.a19c56fa.css",
+    "main.js": "/WebBanHang-reactjs/static/js/main.bfec46d0.js",
+    "static/js/787.28cb0dcd.chunk.js": "/WebBanHang-reactjs/static/js/787.28cb0dcd.chunk.js",
+    "index.html": "/WebBanHang-reactjs/index.html",
+    "main.a19c56fa.css.map": "/WebBanHang-reactjs/static/css/main.a19c56fa.css.map",
+    "main.bfec46d0.js.map": "/WebBanHang-reactjs/static/js/main.bfec46d0.js.map",
+    "787.28cb0dcd.chunk.js.map": "/WebBanHang-reactjs/static/js/787.28cb0dcd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a19c56fa.css",
+    "static/js/main.bfec46d0.js"
+  ]
+}
